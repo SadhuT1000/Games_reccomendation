@@ -1,4 +1,4 @@
-{% extends 'books/base.html' %}
+{% extends 'games/includes/base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
 <div class="container">
@@ -10,7 +10,7 @@
             <a href="{% url 'books:authors' %}" class="btn btn-primary mt-2 mb-2">Authors</a>
             {% endif %}
             {% if user.is_authenticated %}
-            <a href="{% url 'books:books' %}" class="btn btn-primary mt-2 mb-2">Books</a>
+            <a href="{% url 'books:books' %}" class="btn btn-primary mt-2 mb-2">Games</a>
             <a href="{% url 'books:statistics' %}" class="btn btn-primary mt-2 mb-2">Statistics</a>
             <a href="{% url 'books:recommendations' %}" class="btn btn-primary mt-2 mb-2">Recommendations</a>
             {% else %}
