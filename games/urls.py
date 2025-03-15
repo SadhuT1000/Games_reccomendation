@@ -1,14 +1,31 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.views.decorators.cache import cache_page
+from rest_framework.routers import SimpleRouter
+
 from games.apps import GamesConfig
-from games.views import HomeView, GamesDetailView, StatisticInteractionView
+from games.views import (HomeView, StatisticInteractionView, GamesListView, GamesDetailView,
+                         InteractionCreateApiview, InteractionRetrieveApiView, PageRankView,
+                         CollaborativeFilteringView, NearestNeighborsView)
 
 app_name = GamesConfig.name
 
+#router = SimpleRouter()
+
 urlpatterns = [
-    #path('', HomeView.as_view(), name='home'),
+    path("games/",GamesListView.as_view(), name="games_list"),
     path("home/", HomeView.as_view(), name="home"),
-    path("game_detail/<int:pk>/", GamesDetailView.as_view(), name="game_detail"),
+    path("games/<int:pk>/", cache_page(60)(GamesDetailView.as_view()), name="game_detail"),
     path("statistic/", StatisticInteractionView.as_view(), name="statistic"),
 
+
+
+
+    path("games_int/<int:pk>/", InteractionRetrieveApiView.as_view(), name="games_int"),
+    path("prefer_add/",InteractionCreateApiview.as_view(),name="prefer_add"),
+    path('page_rank/', PageRankView.as_view(), name='page-rank'),
+    path('col_filter/', CollaborativeFilteringView.as_view(), name='col_filter'),
+    path('near_neighbor/', NearestNeighborsView.as_view(), name='near_neighbor'),
+
 ]
+

@@ -1,9 +1,9 @@
-{% extends 'recommendation_system/includes/basic_design.html' %}
+{% extends 'games/base.html' %}
 {% load my_tags %}
 {% block title %}Главная страница{% endblock %}
 
 {% block header %}
-{% include 'recommendation_system/includes/header_menu.html' %}
+{% include 'includes/inc_menu.html' %}
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
         <thead>
         <tr>
             <th>Жанры</th>
-            <th>Фильмы</th>
+            <th>Игры</th>
         </tr>
         </thead>
         <tbody>
@@ -32,17 +32,17 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Вы посмотрели</th>
+                        <th>Вы поиграли</th>
                         <th>Ваша оценка</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for film in user_films %}
+                    {% for game in user_films %}
                     <tr>
-                        <td>{{ film.film.title }}</td>
+                        <td>{{ game.game.title }}</td>
                         <td>
                             {% for rating in ratings %}
-                                {% if film.film.id == rating.film.id %}
+                                {% if game.game.id == rating.game.id %}
                                     {{ rating.rating }}
                                 {% endif %}
                             {% endfor %}

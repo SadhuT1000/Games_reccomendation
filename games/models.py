@@ -14,6 +14,8 @@ class Games(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True)
     platforms = models.CharField(max_length=50, verbose_name="Игровая платформа")
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    photo = models.ImageField(upload_to="images/", verbose_name="Изображение",
+                              blank=True, null=True)
 
     class Meta:
         verbose_name = "Игра"
@@ -56,6 +58,10 @@ class Interaction(models.Model):
 
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     game = models.ForeignKey("Games", on_delete=models.CASCADE)
+    game_count = models.PositiveIntegerField(verbose_name="Количество рекомендованных игр", null=True, blank=True,
+                                             default=0)
+    genre_count = models.PositiveIntegerField(verbose_name="Количество рекомендованных жанров", null=True, blank=True,
+                                              default=0)
     rating = models.IntegerField(blank=True, null=True)
     review = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(

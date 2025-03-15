@@ -1,4 +1,4 @@
-{% extends 'games/includes/base.html' %}
+{% extends 'games/base.html' %}
 {% block content %}
 {% load static %}
 
@@ -17,9 +17,9 @@
 
                     <a class="btn btn-primary mt-1" href="{% url 'mailing:message_list' %}" role="button">Отмена</a>
 
-                    <div class="card-footer">
-                        <a href="{% url 'users:password_recovery' %}">Забыли пароль?</a>
-                    </div>
+<!--                    <div class="card-footer">-->
+<!--                        <a href="{% url 'users:password_recovery' %}">Забыли пароль?</a>-->
+<!--                    </div>-->
 
                 </div>
 
@@ -29,4 +29,3 @@
 
 </div>
 {% endblock %}
-
