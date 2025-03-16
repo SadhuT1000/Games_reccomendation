@@ -1,23 +1,33 @@
+
+
 {% extends 'games/base.html' %}
-{% block title %}Home{% endblock %}
+{% block header %}
+{% include 'includes/inc_menu.html' %}
+{% endblock %}
 {% block content %}
 <div class="container">
-    <h2 class="mt-5 text-center">Games recommendations service</h2>
-    <div class="row d-flex justify-content-center align-items-center mt-3 mb-3">
-        <div class="col-4 text-center">
-            {% if user.is_staff %}
-            <a href="{% url 'games:genres' %}" class="btn btn-primary mt-2 mb-2">Genres</a>
-<!--            <a href="{% url 'books:authors' %}" class="btn btn-primary mt-2 mb-2">Authors</a>-->
-            {% endif %}
-            {% if user.is_authenticated %}
-<!--            <a href="{% url 'books:books' %}" class="btn btn-primary mt-2 mb-2">Books</a>-->
-<!--            <a href="{% url 'books:statistics' %}" class="btn btn-primary mt-2 mb-2">Statistics</a>-->
-<!--            <a href="{% url 'books:recommendations' %}" class="btn btn-primary mt-2 mb-2">Recommendations</a>-->
-            {% else %}
-            <a href="{% url 'users:login' %}" class="btn btn-primary mt-2 mb-2">Login</a>
-            <a href="{% url 'users:register' %}" class="btn btn-primary mt-2 mb-2">Sign Up</a>
-            {% endif %}
-        </div>
-    </div>
+ <div class="jumbotron jumbotron-fluid mb-0">
+ <div class="container">
+ <h1 class="display-4 text-center">Добро пожаловать в мир игр!</h1>
+ <p class="lead text-center">Откройте для себя новые игры и получите персональные рекомендации</p>
+ </div>
+
+ </div>
+
+ <div class="container mt-5">
+ <div class="row justify-content-center">
+ <div class="col-md-8 text-center">
+ <h2 class="mb-4">Навигация по сервису</h2>
+
+ <div class="btn-group btn-group-lg btn-group-toggle" role="group" aria-label="Basic example">
+ <a href="{% url 'games:game_list' %}" class="btn btn-primary btn-lg mt-2 mb-2">Список игр</a>
+ <a href="{% url 'games:recommendation' %}" class="btn btn-primary btn-lg mt-2 mb-2">Рекомендации</a>
+ <a href="{% url 'games:statistic' %}" class="btn btn-primary btn-lg mt-2 mb-2">Статистика</a>
+ </div>
+
+
+ </div>
+ </div>
+ </div>
 </div>
 {% endblock %}

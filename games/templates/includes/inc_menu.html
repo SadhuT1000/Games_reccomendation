@@ -11,9 +11,12 @@
         <div class="col-sm-4 offset-md-1 py-4">
           <h4>Навигация</h4>
           <ul class="list-unstyled">
-            <li><a href="{% url 'games:games_list' %}" class="text-white">Главная</a></li>
+
             {% if user.is_authenticated %}
             <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выход</a></li>
+            <li><a class="dropdown-item" href="{% url 'games:choice_user' %}">Cтатистика пользователя</a></li>
+            <li><a class="dropdown-item" href="{% url 'games:game_list' %}">Назад</a></li>
+
             {% else %}
             <li><a class="dropdown-item" href="{% url 'users:login' %}">Вход</a></li>
             <li><a href="{% url 'users:register' %}" class="text-white">Регистрация</a></li>

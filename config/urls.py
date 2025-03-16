@@ -3,9 +3,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from config import settings
+from games.views import HomeView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", HomeView.as_view(), name="home"),
     path("", include("games.urls", namespace="games")),
     path("users/", include("users.urls", namespace="users")),
 ]

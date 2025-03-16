@@ -6,6 +6,7 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from django.urls import reverse, reverse_lazy
 
+from games.models import Interaction
 from users.forms import UserRegisterForm, UserUpdateForm
 from users.models import User
 from users.serializers import UserSerializer, UserRetrieveSerializer
@@ -34,13 +35,34 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     template_name = "users/profile.html"
     context_object_name = "users"
 
+    model = Interaction
+    template_name = 'user_profile.html'
+    context_object_name = 'interactions'
+
+    def get_queryset(self):
+        return Interaction.objects.filter(
+            user=self.request.user,
+            is_favorite=True
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['favorite_games'] = self.get_queryset()
+        return context
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-    """Изменение данных пользователя"""
     model = User
-    form_class = UserUpdateForm
-    def get_success_url(self):
-        return reverse("users:profile_user", args=[self.kwargs.get("pk")])
+    fields = ['email', 'phone', 'avatar', 'preferred_genres']
+    template_name = 'profile_form.html'
+    success_url = reverse_lazy('user_profile')
+
+# class UserUpdateView(LoginRequiredMixin, UpdateView):
+#     """Изменение данных пользователя"""
+#     model = User
+#     form_class = UserUpdateForm
+#     def get_success_url(self):
+#         return reverse("users:profile_user", args=[self.kwargs.get("pk")])
 
 
 class UserCreateView(CreateView):

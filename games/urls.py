@@ -6,17 +6,19 @@ from rest_framework.routers import SimpleRouter
 from games.apps import GamesConfig
 from games.views import (HomeView, StatisticInteractionView, GamesListView, GamesDetailView,
                          InteractionCreateApiview, InteractionRetrieveApiView, PageRankView,
-                         CollaborativeFilteringView, NearestNeighborsView)
+                         CollaborativeFilteringView, NearestNeighborsView, ChoiceView, GameRecommendationsListView)
 
 app_name = GamesConfig.name
 
 #router = SimpleRouter()
 
 urlpatterns = [
-    path("games/",GamesListView.as_view(), name="games_list"),
+    path("games/",GamesListView.as_view(), name="game_list"),
     path("home/", HomeView.as_view(), name="home"),
     path("games/<int:pk>/", cache_page(60)(GamesDetailView.as_view()), name="game_detail"),
     path("statistic/", StatisticInteractionView.as_view(), name="statistic"),
+    path("choice_user/", ChoiceView.as_view(), name="choice_user"),
+    path("recommendation/", GameRecommendationsListView.as_view(), name="recommendation"),
 
 
 

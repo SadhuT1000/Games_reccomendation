@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from games.models import Games, Genre, Developer, Interaction
+from users.models import User
 
 
 @admin.register(Games)
@@ -56,4 +57,18 @@ class InteractionAdmin(admin.ModelAdmin):
     search_fields = (
         'game',
     )
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    """Отображает модели пользователей в админке"""
+
+    list_display = (
+        "id",
+        "email",
+    )
+    list_filter = (
+        "email",
+    )
+    search_fields = ("id", "email",)
 

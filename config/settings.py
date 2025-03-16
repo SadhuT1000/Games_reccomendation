@@ -129,8 +129,8 @@ AUTH_USER_MODEL = "users.User"
 
 
 LOGIN_URL = "users:login"
-LOGIN_REDIRECT_URL = "games:game"
-LOGOUT_REDIRECT_URL = "games:game"
+LOGIN_REDIRECT_URL = "games:game_list"
+LOGOUT_REDIRECT_URL = "games:game_list"
 
 
 CACHE_ENABLED = True
