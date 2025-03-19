@@ -1,3 +1,5 @@
+
+
 import os
 from pathlib import Path
 
@@ -116,7 +118,6 @@ STATICFILES_DIRS = [
 ]
 
 
-
 MEDIA_URL = "media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -135,4 +136,9 @@ LOGOUT_REDIRECT_URL = "games:game_list"
 
 CACHE_ENABLED = True
 if CACHE_ENABLED:
-    CACHES: {"default": {"BACKEND": "django.core.cache.backends.redis.RedisCache", "LOCATION": os.getenv("LOCATION")}}
+    CACHES: {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv("LOCATION"),
+        }
+    }

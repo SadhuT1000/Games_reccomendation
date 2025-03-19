@@ -1,15 +1,11 @@
-
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django import forms
+# flake8: noqa
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.forms import BooleanField, ModelForm
 from django.urls import reverse_lazy
 
 from users.models import User
-from django.forms import BooleanField, ModelForm
 
 
-# class StyleFormMixin:
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
 
 class StyleFormMixin:
     def __init__(self, *args, **kwargs):
@@ -25,9 +21,6 @@ class UserRegisterForm(StyleFormMixin, UserCreationForm):
     class Meta:
         model = User
         fields = ("email", "password1", "password2")
-
-
-
 
 
 class UserUpdateForm(StyleFormMixin, ModelForm):

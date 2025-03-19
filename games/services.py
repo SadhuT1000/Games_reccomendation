@@ -1,10 +1,12 @@
-from config.settings import CACHE_ENABLED
-from games.models import Games, Interaction
-from django.core.cache import cache
+# flake8: noqa
 import networkx as nx
+from django.core.cache import cache
 from sklearn.neighbors import NearestNeighbors
 
+from config.settings import CACHE_ENABLED
+from games.models import Games, Interaction
 from users.models import User
+from django.db.models import Avg
 
 
 def get_games_from_cashe():
@@ -19,33 +21,30 @@ def get_games_from_cashe():
     return games
 
 
-
-
 def calculate_page_rank():
-    # Создание графа
+
     G = nx.DiGraph()
 
-    # Добавление узлов (игр)
+
     for game in Games.objects.all():
         G.add_node(game.id)
 
-    # Добавление рёбер (взаимодействий)
+
     for interaction in Interaction.objects.all():
         G.add_edge(interaction.game.id, interaction.user.id)
 
-    # Вычисление PageRank
+
     pr = nx.pagerank(G)
 
     return pr
 
 
-
 def collaborative_filtering():
-    # Сбор данных о предпочтениях пользователей
+
     data = []
     for user in User.objects.all():
         user_ratings = []
-        for game in Game.objects.all():
+        for game in Games.objects.all():
             try:
                 rating = Interaction.objects.get(user=user, game=game).rating
             except Interaction.DoesNotExist:
@@ -53,30 +52,34 @@ def collaborative_filtering():
             user_ratings.append(rating)
         data.append(user_ratings)
 
-    # Создание модели
-    model = NearestNeighbors(metric='cosine')
+
+    model = NearestNeighbors(metric="cosine")
     model.fit(data)
 
-    # Нахождение ближайших соседей для каждого пользователя
-    neighbors = model.kneighbors(data, n_neighbors=5)
+
+    neighbors = model.kneighbors(data, n_neighbors=1)
 
     return neighbors
 
 
 def k_nearest_neighbors():
-    # Сбор данных о пользователях
+
     data = []
     for user in User.objects.all():
         user_features = []
-        # Добавление признаков пользователя (например, средние оценки игр)
-        user_features.append(Interaction.objects.filter(user=user).aggregate(Avg('rating'))['rating__avg'])
+
+        user_features.append(
+            Interaction.objects.filter(user=user).aggregate(Avg("rating"))[
+                "rating__avg"
+            ]
+        )
         data.append(user_features)
 
-    # Создание модели
-    model = NearestNeighbors(metric='euclidean')
+
+    model = NearestNeighbors(metric="euclidean")
     model.fit(data)
 
-    # Нахождение ближайших соседей для каждого пользователя
-    neighbors = model.kneighbors(data, n_neighbors=5)
+
+    neighbors = model.kneighbors(data, n_neighbors=1)
 
     return neighbors

@@ -11,7 +11,6 @@ class UserSerializer(ModelSerializer):
         fields = "__all__"
 
 
-
 class UserRetrieveSerializer(ModelSerializer):
     """Cериализатор для просмотра пользователя."""
 
