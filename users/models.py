@@ -60,14 +60,13 @@ class UserPlatform(models.Model):
         max_length=50,
         verbose_name="Игровая платформа",
         choices=[
-            (p, p) for p in Games.objects.values_list("platforms", flat=True).distinct()
         ],
     )
 
     class Meta:
 
-        verbose_name = "User"
-        verbose_name_plural = "Users"
+        verbose_name = "User_platform"
+        verbose_name_plural = "Users_platforms"
 
     def __str__(self):
         return self.user
