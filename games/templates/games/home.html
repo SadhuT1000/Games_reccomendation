@@ -1,0 +1,33 @@
+
+
+{% extends 'games/base.html' %}
+{% block header %}
+{% include 'includes/inc_menu.html' %}
+{% endblock %}
+{% block content %}
+<div class="container">
+ <div class="jumbotron jumbotron-fluid mb-0">
+ <div class="container">
+ <h1 class="display-4 text-center">Добро пожаловать в мир игр!</h1>
+ <p class="lead text-center">Откройте для себя новые игры и получите персональные рекомендации</p>
+ </div>
+
+ </div>
+
+ <div class="container mt-5">
+ <div class="row justify-content-center">
+ <div class="col-md-8 text-center">
+ <h2 class="mb-4">Навигация по сервису</h2>
+
+ <div class="btn-group btn-group-lg btn-group-toggle" role="group" aria-label="Basic example">
+ <a href="{% url 'games:game_list' %}" class="btn btn-primary btn-lg mt-2 mb-2">Список игр</a>
+ <a href="{% url 'games:recommendation' %}" class="btn btn-primary btn-lg mt-2 mb-2">Рекомендации</a>
+ <a href="{% url 'games:statistic' %}" class="btn btn-primary btn-lg mt-2 mb-2">Статистика</a>
+ </div>
+
+
+ </div>
+ </div>
+ </div>
+</div>
+{% endblock %}
